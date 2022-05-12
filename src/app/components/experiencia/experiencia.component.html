@@ -1,0 +1,135 @@
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-10 col-md-11">
+            <h2>Experiencia</h2>
+        </div>
+        <div class="col-2 col-md-1 text-center">
+            <a *ngIf="isUsrLoged" href="javascript:;" (click)="createItem()"  class="text-reset ps-2 ps-md-4">
+              <i class="fa fa-plus"></i>
+            </a>
+        </div> 
+    </div>    
+
+    <div *ngFor="let experience of experienceList" class="row mt-5">
+        <div class="col-3 col-md-1">
+            <img *ngIf="experience.company.logo" [src]="experience.company.
+            logo" alt="Logo" class="img-logo">
+        </div>
+
+        <div class="col-9 col-md-11">
+            <div class="row">
+                <div class="col-9 col-md-11">
+                    <h3 class="fs-5">{{experience.position.name}}</h3>
+                </div>
+                <div class="col-3 col-md-1 text-center">
+                    <a *ngIf="isUsrLoged" (click)="updateItem(experience)" href="javascript:;" class="text-reset">
+                      <i class="fa fa-pen"></i>
+                    </a>
+                    <a *ngIf="isUsrLoged" (click)="deleteItem(experience.id)" href="javascript:;" class="text-reset">
+                        <i class="fa fa-trash ps-1 ps-md-2"></i>
+                      </a>
+                </div> 
+            </div>    
+            <p class="fs-6">
+                <span class="fw-bold">{{experience.company.name}}</span> - {{experience.mode.name}}<br>
+                <span>{{experience.start}} - {{experience.end}}: {{experience.time_elapsed}}</span>
+            </p>
+            <div class="row">
+              <div class="col-11 col-md-4">
+                <span class="fs-6">{{experience.description}}</span>
+              </div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr>
+</section>
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="experienceModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="experienceModalLabel">Experiencia</h4>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="formExperience" (submit)="saveChanges()">
+            <div class="container-fluid">
+  
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab-exp" role="tablist">
+  
+                  <button class="nav-link active text-white btn btn-success bg-success" id="nav-edg-tab" data-bs-toggle="tab" data-bs-target="#datosExperiencia" type="button" role="tab" aria-controls="nav-edg" aria-selected="true">Datos Generales</button>
+  
+                  <button class="nav-link text-white btn btn-success bg-success ms-1" id="nav-ed-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="nav-ed" aria-selected="false">Descripción</button>
+    
+                </div>
+              </nav>
+              <div class="tab-content" id="myTabContentExp">
+                <div class="tab-pane fade show active" id="datosExperiencia" role="tabpanel" aria-labelledby="datosExperiencia">
+   
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      
+                      <label for="position" class="form-label fw-bold">Posición</label>
+                      <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="position" formControlName="position">
+                        <option *ngFor="let position of positionList" [value]="position.id">{{position.name}}</option>
+                      </select>
+
+                      <label for="company" class="form-label fw-bold">Empresa</label>
+                      <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="company" formControlName="company" (change)="onSelectCompany(formExperience.value.company)">
+                        <option *ngFor="let company of companyList" [value]="company.id">{{company.name}}</option>
+                      </select>
+      
+                      <label for="mode" class="form-label fw-bold">Jornada</label>
+                      <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="mode" formControlName="mode">
+                        <option *ngFor="let mode of modeList" [value]="mode.id">{{mode.name}}</option>
+                      </select>  
+
+                      <div class="row">
+                        <div class="col-6">
+                          <label for="start" class="form-label fw-bold">Inicio</label>
+                          <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="start" formControlName="start" placeholder="Inicio actividad">
+                        </div>
+                        <div class="col-6">
+                          <label for="end" class="form-label fw-bold">Final</label>
+                          <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="end" formControlName="end" placeholder="Final actividad">
+                        </div>
+                      </div>  
+                      <label for="timeElapsed" class="form-label fw-bold">Permanencia</label>
+                      <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="timeElapsed" formControlName="timeElapsed" placeholder="Permanencia">
+
+                    </div>
+
+                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                      <img *ngIf="formExperience.value.logo" [src]="formExperience.value.logo" alt="logo" class="w-75">
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="tab-pane fade body-minimo" id="description" role="tabpanel" aria-labelledby="description">
+
+                  <div class="row col-12">
+                    <textarea  class="mt-4 mb-2 form-control bg-light border border-2 border-success rounded" type="text" id="descripcion" formControlName="description" placeholder="Breve descripción" rows="5"></textarea>
+                  </div>
+  
+                </div>
+
+              </div>
+
+            </div>
+
+        </form>      
+
+      </div>          
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="saveChanges()"  [disabled]="formExperience.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

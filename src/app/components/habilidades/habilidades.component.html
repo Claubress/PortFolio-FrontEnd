@@ -1,0 +1,80 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-10 col-md-11">
+        <h2>Habilidades</h2>
+    </div>
+    <div class="col-2 col-md-1 text-center">
+      <a *ngIf="isUsrLoged" href="javascript:;" (click)="createItem()" class="text-reset ps-3 ps-md-4">
+        <i class="fa fa-plus"></i>
+      </a>
+    </div> 
+  </div>
+
+  <div *ngFor="let skill of skillList" >   
+    <div class="row">
+      <div class="col-10 col-md-11">
+        <h3 class="fs-6">{{skill.name}}</h3>
+      </div>
+      <div class="col-2 col-md-1 text-center">
+        <a *ngIf="isUsrLoged" href="javascript:;" (click)="updateItem(skill)" class="text-reset">
+          <i class="fa fa-pen"></i>
+        </a>
+        <a *ngIf="isUsrLoged" href="javascript:;" (click)="deleteItem(skill.id)" class="text-reset">
+            <i class="fa fa-trash ps-1 ps-md-2"></i>
+          </a>
+      </div> 
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-10 col-md-11">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated   bg-success w-{{skill.advanced}}" role="progressbar" aria-valuemin="0" aria-valuemax="100">{{skill.advanced}}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+</section>
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="skillModal">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="skillModalLabel">Habilidades</h4>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+ 
+          <form [formGroup]="formSkill" (submit)="saveChanges()">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  
+                  <label for="name" class="form-label fw-bold">Habilidad</label>
+                  <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="nameSkill" formControlName="name" placeholder="Habilidad desarrollada">
+
+                  <label for="advanced" class="form-label fw-bold">Avance: {{formSkill.value.advanced}}%</label>
+             
+                  <input type="range" class="form-range" step="25" id="advanced" formControlName="advanced">                  
+
+                </div>
+
+              </div>
+
+            </div>
+
+        </form>      
+
+      </div>          
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="saveChanges()"  [disabled]="formSkill.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

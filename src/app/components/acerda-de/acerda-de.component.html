@@ -1,0 +1,144 @@
+<section class="container-fluid">
+  <div *ngIf="person" class="row">
+    <div class="col-12 col-md-4 mt-4">
+      <img *ngIf="person.photo" [src]="person.photo" alt="Claudio" class="profile_img img-fluid">
+
+      <h1 class="fs-3 pt-2">{{person.name}}</h1>
+
+      <h2 class="fs-6">{{person.position.name}}</h2>
+
+      <h2 class="fs-6">{{person.ubication}}</h2>
+    </div>
+
+    <div class="col-12 col-md-8">
+
+      <div class="row mt-3">
+
+        <div class="col-10 col-md-11">
+          <h2>Sobre mí</h2>
+        </div>
+
+        <div class="col-2 col-md-1 text-center">
+          <a *ngIf="isUsrLoged" (click)="upDate()" href="javascript:;" class="text-reset ps-md-0">
+            <i class="fa fa-pen"></i>
+          </a>
+        </div>
+      </div>
+      <!--
+        Mostrar saltos de línea
+      -->
+      <p [innerHTML]="person.about | nl2br"></p>    
+    </div>
+  </div>
+  <hr>
+</section>
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="aboutModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="aboutModalLabel">Perfil</h4>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formPersonalData" (submit)="saveChange()">
+          <div class="container-fluid">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                <button class="nav-link active text-white btn btn-success bg-success" id="nav-dp-tab" data-bs-toggle="tab" data-bs-target="#datosPersonales" type="button" role="tab" aria-controls="nav-dp" aria-selected="true">Datos Personales</button>
+
+                <button class="nav-link text-white btn btn-success bg-success ms-1" id="nav-ab-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="nav-ab" aria-selected="false">Sobre mí</button>
+
+                <button class="nav-link text-white btn btn-success bg-success ms-1" id="nav-sm-tab" data-bs-toggle="tab" data-bs-target="#socialMedia" type="button" role="tab" aria-controls="nav-sm" aria-selected="false">Redes sociales</button>
+
+              </div>
+            </nav>
+            <div class="tab-content" id="myTabContent">
+
+              <div class="tab-pane fade show active" id="datosPersonales" role="tabpanel" aria-labelledby="datosPersonales">
+                
+                <div class="row pt-1" >
+                  <div class="col-12 col-md-6">
+                    
+                    <label for="name" class="form-label fw-bold">Nombre</label>
+                    <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="name" formControlName="name" placeholder="Nombre">
+              
+                    <label for="actualPosition" class="form-label fw-bold">Posición</label>
+                    <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="actualPosition" formControlName="actualPosition" placeholder="Posición">
+                      <option *ngFor="let position of positionList" [value]="position.id">{{position.name}}</option>
+                    </select>
+
+                    <label for="ubicationCountry" class="form-label fw-bold">País</label>
+                    <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="ubicationCountry" formControlName="ubicationCountry" placeholder="País" (change)="onSelectCountry(formPersonalData.value.ubicationCountry)">
+                      <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
+                    </select>
+
+                    <label for="ubicationState" class="form-label fw-bold">Provincia</label>
+                    <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="ubicationState" formControlName="ubicationState" placeholder="Provincia" (change)="onSelectState(formPersonalData.value.ubicationState)">
+                      <option *ngFor="let state of stateList" [value]="state.id">{{state.name}}</option>
+                    </select>
+
+                    <label for="ubicationCity" class="form-label fw-bold">Ciudad</label>
+
+                    <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="ubicationCity" formControlName="ubicationCity" placeholder="Ciudad">
+                      <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+                    </select>
+                  </div>
+  
+                  <div class="col-12 col-md-6">
+
+                    <div class="row" >
+                      <label for="photo" class="form-label fw-bold">Foto</label>
+                      <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="photo" formControlName="photo" placeholder="Foto">
+                    </div>
+
+                    <div class="row pt-1 d-flex justify-content-center align-items-center">
+                      <img [src]="formPersonalData.value.photo" alt="foto" class="w-75">
+                    </div>
+
+                  </div>
+              
+                </div>
+              </div>
+
+              <div class="tab-pane fade body-minimo" id="about" role="tabpanel" aria-labelledby="about">
+                
+                <div class="row col-12">
+                  <textarea  class="mt-4 mb-2 form-control bg-light border border-2 border-success rounded" type="text" id="about" formControlName="about" placeholder="Breve reseña" rows="15"></textarea>
+                </div>
+              </div>
+
+
+              <div class="tab-pane fade body-minimo" id="socialMedia" role="tabpanel" aria-labelledby="socialMedia">
+
+                <div class="row pt-1" >
+                  <div class="col-12">
+                    <label for="facebook" class="form-label fw-bold">Facebook</label>
+                    <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="facebook" formControlName="facebook" placeholder="Perfil Facebook">
+
+                    <label for="twitter" class="form-label fw-bold">Twitter</label>
+                    <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="twitter" formControlName="twitter" placeholder="Perfil Twitter">
+
+                    <label for="instagram" class="form-label fw-bold">Instagram</label>
+                    <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="instagram" formControlName="instagram" placeholder="Perfil Instagram">
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </form>      
+
+      </div>          
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="saveChange()" [disabled]="formPersonalData.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-10 col-md-11">
+            <h2>Educación</h2>
+        </div>
+        <div class="col-2  col-md-1 text-center">
+            <a *ngIf="isUsrLoged"  href="javascript:;" (click)="createItem()" class="text-reset ps-2 ps-md-4">
+              <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>    
+
+    <div *ngFor="let education of educationList" class="row mt-5">
+        <div class="col-3 col-md-1">
+            <img *ngIf="education.school.logo" [src]="education.school.logo" alt="Logo" class="img-logo">
+        </div>
+        <div class="col-9 col-md-11">
+            <div class="row">
+                <div class="col-9 col-md-11">
+                    <h3 class="fs-5">{{education.school.name}}</h3>
+                </div>
+                <div class="col-3 col-md-1 text-center">
+                    <a *ngIf="isUsrLoged" href="javascript:;" (click)="upDateItem(education)" class="text-reset">
+                      <i class="fa fa-pen"></i>
+                    </a>
+                    <a *ngIf="isUsrLoged" href="javascript:;" (click)="deleteItem(education.id)"  class="text-reset">
+                        <i class="fa fa-trash ps-1 ps-md-2"></i>
+                      </a>
+                </div> 
+            </div>
+            <p class="fs-6">
+                {{education.title.name}} <br>
+                {{education.start}} - {{education.end}}
+            </p>
+        </div>
+    </div>
+    <hr>
+</section>
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="educationModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="educationModalLabel">Educación</h4>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="formEducation" (submit)="saveChanges()">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  
+                  <label for="school" class="form-label fw-bold">Institución</label>
+                  <select class="form-control form-select bg-light border border-2 border-success rounded mb-2" id="school" formControlName="school" (change)="onSelectSchool(formEducation.value.school)">
+                    <option *ngFor="let school of schoolList" [value]="school.id">{{school.name}}</option>
+                  </select>
+
+                  <label for="title" class="form-label fw-bold">Título</label>
+                  <select class="form-control form-select  bg-light border border-2 border-success rounded mb-2" id="title" formControlName="title">
+                    <option *ngFor="let title of titleList" [value]="title.id">{{title.name}}</option>
+                  </select>
+  
+                  <div class="row">
+                    <div class="col-6">
+                      <label for="start" class="form-label fw-bold">Inicio</label>
+                      <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="startEducation" formControlName="start" placeholder="Inicio actividad">
+                    </div>
+                    <div class="col-6">
+                      <label for="end" class="form-label fw-bold">Final</label>
+                      <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="endEducation" formControlName="end" placeholder="Final actividad">
+                    </div>
+                  </div>  
+
+                </div>
+
+                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                  <img *ngIf="formEducation.value.logo" [src]="formEducation.value.logo" alt="logo" class="w-75">
+                </div>
+
+              </div>
+
+            </div>
+
+        </form>      
+
+      </div>          
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="saveChanges()"  [disabled]="formEducation.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

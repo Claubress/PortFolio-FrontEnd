@@ -1,0 +1,76 @@
+{
+    "personalData": {
+        "id": "1",
+        "name": "Claudio Bressan",
+        "position": "Full Stack Devoloper Jr",
+        "ubication": "Río Tercero - Córdoba - Argentina",
+        "about": "Años de experiencia en el mundo de la informática",
+        "photo": "../assets/img/YOA.jpg"
+    },
+    "experience": [{
+        "id": "1",
+        "position": "IT Support",
+        "company": "Weatherford International",
+        "logo": "../assets/img/Weatherford_logo_PNG1.png",
+        "mode": "Tiempo completo",
+        "start": "May 2001",
+        "end": "Oct 2021",
+        "timeElapsed": "20 años"
+    },
+    {
+        "id": "2",
+        "position": "Profesor de Programación Lógica",
+        "company": "Escuela Nacional Superior de Comercio",
+        "logo": "../assets/img/ENSCRT.png",
+        "mode": "Tiempo completo",
+        "start": "Mar 1991",
+        "end": "Dec 1997",
+        "timeElapsed": "6 años"
+    }],
+    "education": [{
+        "id": "1",
+        "school": "Argentina Programa - #YoProgramo",
+        "title": "Full Stack Developer",
+        "logo": "../assets/img/APrograma.png",
+        "start": "2021",
+        "end": "2022"
+    },
+    {
+        "id": "2",
+        "school": "Escuela Nacional Superior de Comercio",
+        "title": "Analista de sistemas",
+        "logo": "../assets/img/ENSCRT.png",
+        "start": "1990",
+        "end": "1993"
+    },
+    {
+        "id": "3",
+        "school": "Escuela Nacional de Education Técnica",
+        "title": "Técnico Electro Mecánico",
+        "logo": "../assets/img/ENET.png",
+        "start": "1978",
+        "end": "1983"
+    }],
+    "skil": [{
+        "id": "1",
+        "name": "Resolución de problemas",
+        "advance": "75"
+    },
+    {
+        "id": "2",
+        "name": "Diseño de sistemas",
+        "advance": "25"
+    },
+    {
+        "id": "3",
+        "name": "Alguna otra",
+        "advance": "50"
+    }],
+    "project": [{
+        "id": "1",
+        "title": "Trabajo integrador #YoProgramo",
+        "description": "Descripción del proyecto",
+        "img": "../assets/img/portfolio.png"
+    }]
+
+}

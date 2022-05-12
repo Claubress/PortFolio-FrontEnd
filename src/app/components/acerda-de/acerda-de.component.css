@@ -1,0 +1,13 @@
+.profile_img {
+    --tamanio: 180px;
+    width: var(--tamanio);
+    height: var(--tamanio);
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 7px 7px 7px rgba(0 0 0 / 0.5);
+    border: 3px ridge #fff;
+}
+
+.body-minimo {
+    min-height: 404px;
+}

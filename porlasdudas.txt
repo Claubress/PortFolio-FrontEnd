@@ -1,0 +1,144 @@
+<div Class="container-fluid m-0 p-0 border border-3 rounded border-success">
+
+  <div class="modal-header">
+    <h4 class="modal-title text-success fs-2">Login</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="formLogin" (submit)="send()">
+      <div class="row m-auto mb-3 p-0">
+        <input class="bg-light border border-2 border-success rounded" type="text" id="email" formControlName="email" placeholder="email">
+      </div>
+      <div class="row m-auto mb-3 p-0">
+        <input type="password" id="password" formControlName="password"
+        placeholder="password">
+      </div>
+<!--
+  <div>
+  Valido: {{formLogin.valid}}
+  </div>
+-->
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="d-grid gap-2 col-12 mx-auto">
+    <button type="button" class="btn btn-success" (click)="send()" [disabled]="formLogin.invalid">Login</button>
+    </div>
+  </div>
+</div>
+
+
+================================================================================================
+
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  
+  //@Input() my_modal_title: any;
+  //@Input() my_modal_content: any;
+
+    public formLogin: FormGroup = new FormGroup({});
+
+
+  constructor(
+  
+  ) { }
+
+  ngOnInit(): void {
+    this.formLogin = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+      }
+    );
+  }
+  
+  send(): void {
+    console.log(this.formLogin.value)
+  }
+}
+
+
+=======================================================================
+
+header 
+
+======================================================================
+
+
+<header class="d-flex align-items-top">
+    
+  <div class="container-fluid">
+
+<!-- Navbar -->
+    <nav class="row text-white justify-content-between align-items-center">
+
+      <!-- Logo -->
+      <a href="#" class="col-12 col-md-auto text-reset text-center mb-md-0 ">
+        <img src="../assets/img/APLogo-20-20.png" alt="Logo Argentina Programa" class="img-logo">#YoProgramo</a>
+
+      <!-- social networks -->
+      <ul class="col-12 col-md-2 list-unstyled">
+        <li class="d-flex justify-content-between">
+          <!-- FB -->
+          <a href="#" class="text-reset pt-2">
+            <i class="fab fa-facebook-f fa-lg"></i>
+          </a>
+          <!-- Twitter -->
+          <a href="#" class="text-reset pt-2">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a>
+          <!-- Instagram -->
+          <a href="#" class="text-reset pt-2">
+            <i class="fab fa-instagram fa-lg"></i>
+          </a>
+          <!-- Botón -->
+<!--
+          <a href="#" class="btn btn-outline-light">Login</a>
+-->
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Login
+          </button>
+
+
+        </li>
+      </ul>
+    </nav>
+    <div class="row ms-5 mt-5">
+      <div class="col-xl-6">
+        <h1 class="titulo">Hola, <span class="display-1 text-success fw-bold">soy</span> {{firstName}}</h1>
+        <h2 class="display-1 text-success fw-bold">Full Stack Developer</h2>
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

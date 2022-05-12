@@ -1,0 +1,110 @@
+<header class="d-flex align-items-top">
+    
+  <div class="container-fluid">
+
+<!-- Navbar -->
+    <nav class="row text-white justify-content-between align-items-center">
+
+      <!-- Logo -->
+      <a href="#" class="col-12 col-md-auto text-reset text-center mb-md-0 ">
+        <img src="../assets/img/APLogo-20-20.png" alt="Logo Argentina Programa" class="img-logo">#YoProgramo</a>
+
+      <!-- social networks -->
+      <ul class="col-12 col-md-2 list-unstyled">
+        <li class="d-flex justify-content-between">
+          <!-- FB -->
+          <a *ngIf="socialNetworks" [href]="socialNetworks.facebook" class="text-reset pt-2" target="_blank">
+            <i class="fab fa-facebook-f fa-lg"></i>
+          </a>
+          <!-- Twitter -->
+          <a *ngIf="socialNetworks" [href]="socialNetworks.twitter" class="text-reset pt-2" target="_blank">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a>
+          <!-- Instagram -->
+          <a *ngIf="socialNetworks" [href]="socialNetworks.instagram" class="text-reset pt-2" target="_blank">
+            <i class="fab fa-instagram fa-lg"></i>
+          </a>
+          <!-- Botón -->
+          <button type="button" class="btn btn-outline-light" (click)="open()">
+            {{textoBoton}}
+          </button>
+
+        </li>
+      </ul>
+    </nav>
+    <div class="row ms-5 mt-5">
+      <div class="col-xl-6">
+        <h1 class="titulo">Hola, <span class="display-1 text-success fw-bold">soy</span> {{firstName}}</h1>
+        <h2 class="display-1 text-success fw-bold">Full Stack Developer</h2>
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="loginModalLabel">Login</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formLogin" (submit)="login()">
+
+          <div class="row form-floating mb-4">
+
+            <input class="form-control bg-light border border-2 border-success rounded" type="text" id="email" formControlName="email" placeholder="email">
+
+            <label for="email">email</label>
+
+            <!-- AGREGADO Validación email -->
+            <div *ngIf="Email?.errors && Email?.touched">
+
+              <p *ngIf="Email?.hasError('required')" class="text-danger">
+                Debe colocar un email.
+              </p>
+
+              <p *ngIf="Email?.hasError('email')" class="text-danger">
+                El formato del email debe ser valido.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="row form-floating mb-2">
+            <input class="form-control bg-light border border-2 border-success rounded" type="password" id="password" formControlName="password"
+            placeholder="password">
+            <label for="password">password</label>
+            
+            <!-- AGREGADO Validación password -->
+            <div *ngIf="Password?.errors && Password?.touched">
+
+              <p *ngIf="Password?.hasError('required')" class="text-danger">
+                Debe colocar una contraseña.
+              </p>
+
+              <p *ngIf="Password?.hasError('minlength')" class="text-danger">
+                La contraseña debe tener al menos 8 caracteres.
+              </p>
+
+            </div>          
+          </div>
+        </form>
+        <div>
+          <p *ngIf="errorLogin" class="text-center text-danger">email o password erroneos</p>
+        </div>      
+      </div>
+      <div class="modal-footer">
+        <div class="row col-12 mx-auto">
+          <button type="button" class="btn btn-success" (click)="login()" [disabled]="formLogin.invalid">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

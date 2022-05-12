@@ -1,0 +1,84 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-10 col-md-11">
+        <h2>Proyectos</h2>
+    </div>
+    <div class="col-2 col-md-1 text-center">
+        <a *ngIf="isUsrLoged" href="javascript:;" (click)="createItem()" class="text-reset ps-3 ps-md-4" >
+          <i class="fa fa-plus"></i>
+        </a>
+    </div>
+  </div>
+
+  <div *ngFor="let project of projectList" class="row mt-3">
+    <div class="col-12 col-md-3">
+        <img *ngIf="project.image" [src]="project.image" alt="Proyecto" class="img-fluid">
+    </div>
+    
+    <div class="col-12 col-md-9">
+  
+      <div class="row mt-2 mt-md-0">
+        <div class="col-10 col-md-11">
+            <h3 class="fs-5">{{project.title}}</h3>
+        </div>  
+        <div class="col-2 col-md-1 text-center">
+            <a *ngIf="isUsrLoged" href="javascript:;" (click)="updateItem(project)" class="text-reset" >
+              <i class="fa fa-pen"></i>
+            </a>
+            <a *ngIf="isUsrLoged" href="javascript:;" (click)="deleteItem(project.id)" class="text-reset ps-1 ps-md-2">
+                <i class="fa fa-trash"></i>
+              </a>
+        </div> 
+      </div>
+         <p class="fs-6" [innerHTML]="project.description | nl2br"></p>
+    </div>
+  
+  </div>
+  <hr>
+  
+</section>
+
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="projectModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-success fs-2" id="projectModalLabel">Proyectos</h4>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="formProject" (submit)="saveChanges()">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  
+                  <label for="title" class="form-label fw-bold">Título</label>
+                  <input class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="titleProject" formControlName="title" placeholder="Título del proyecto">
+
+                  <label for="description" class="form-label fw-bold">Descripción</label>
+                  <textarea class="form-control bg-light border border-2 border-success rounded mb-2" type="text" id="description" formControlName="description" placeholder="Descripción" rows="5"></textarea>
+  
+                  <label img="image" class="form-label fw-bold">Imagen</label>
+                  <input class="form-control bg-light border border-2 border-success rounded mb-3 mb-md-1" type="text" id="image" formControlName="image" placeholder="Imagen">
+
+                </div>
+
+                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                  <img *ngIf="formProject.value.image" [src]="formProject.value.image" alt="img" class="w-75">
+                </div>
+
+              </div>
+
+            </div>
+
+        </form>      
+
+      </div>          
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="saveChanges()"  [disabled]="formProject.invalid">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
